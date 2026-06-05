@@ -10,7 +10,7 @@ const SPACES = [
   { id: 6, owner: "Deepa N.", ownerInitials: "DN", area: "Bellandur", address: "Near Ecospace Tech Park", price: 45, rating: 4.7, reviews: 29, type: "Covered", size: "4-Wheeler", available: true, distance: "0.9 km", amenities: ["CCTV", "24/7 Access", "Covered", "EV Charging"], timings: "All day", img: "amber" },
 ];
 
-const COLOR_MAP = { coral: "#f0997b", teal: "#5DCAA5", blue: "#85B7EB", purple: "#AFA9EC", green: "#97C459", amber: "#FAC775" };
+const COLOR_MAP = { coral: "#f0997b", teal: "#5DCAA5", blue: "#85B7EB", purple: "#AFA9EC", green: "#97C459", amber: "#FFFFFF" };
 
 const HOST_EARNINGS = [
   { month: "Nov", amount: 2400 }, { month: "Dec", amount: 3100 }, { month: "Jan", amount: 2800 },
@@ -25,7 +25,7 @@ const MY_BOOKINGS = [
 
 const AREA_FILTERS = ["All", "Koramangala", "Indiranagar", "HSR Layout", "Whitefield", "JP Nagar", "Bellandur"];
 
-function Avatar({ initials, color = "#FAC775", size = 40 }) {
+function Avatar({ initials, color = "#FFFFFF", size = 40 }) {
   return (
     <div style={{ width: size, height: size, borderRadius: "50%", background: color + "33", border: `2px solid ${color}55`, display: "flex", alignItems: "center", justifyContent: "center", fontSize: size * 0.35, fontWeight: 600, color: color, flexShrink: 0 }}>
       {initials}
@@ -35,7 +35,7 @@ function Avatar({ initials, color = "#FAC775", size = 40 }) {
 
 function Badge({ label, icon }) {
   return (
-    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 10px", background: "rgba(250,199,117,0.13)", border: "1px solid rgba(250,199,117,0.3)", borderRadius: 20, fontSize: 11, color: "#FAC775", fontWeight: 500 }}>
+    <span style={{ display: "inline-flex", alignItems: "center", gap: 4, padding: "3px 10px", background: "rgba(255,255,255,0.13)", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 20, fontSize: 11, color: "#FFFFFF", fontWeight: 500 }}>
       {icon && <span style={{ fontSize: 10 }}>{icon}</span>}
       {label}
     </span>
@@ -60,12 +60,12 @@ function SpaceCard({ space, onClick }) {
             <div style={{ fontSize: 11, color: "#94a3b8", marginTop: 1 }}>{space.address}</div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 16, fontWeight: 700, color: "#FAC775" }}>₹{space.price}</div>
+            <div style={{ fontSize: 16, fontWeight: 700, color: "#FFFFFF" }}>₹{space.price}</div>
             <div style={{ fontSize: 10, color: "#94a3b8" }}>/hr</div>
           </div>
         </div>
         <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 8 }}>
-          <Star size={11} fill="#FAC775" color="#FAC775" />
+          <Star size={11} fill="#FFFFFF" color="#FFFFFF" />
           <span style={{ fontSize: 12, color: "#e2e8f0", fontWeight: 500 }}>{space.rating}</span>
           <span style={{ fontSize: 11, color: "#64748b" }}>({space.reviews})</span>
           <span style={{ marginLeft: "auto", fontSize: 11, background: "rgba(255,255,255,0.07)", padding: "2px 8px", borderRadius: 6, color: "#94a3b8" }}>{space.type}</span>
@@ -78,21 +78,21 @@ function SpaceCard({ space, onClick }) {
 function HomeView({ setView }) {
   return (
     <div style={{ padding: "0 0 80px" }}>
-      <div style={{ textAlign: "center", padding: "50px 24px 40px", background: "radial-gradient(ellipse at 50% 0%, rgba(250,199,117,0.12) 0%, transparent 70%)" }}>
-        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(250,199,117,0.1)", border: "1px solid rgba(250,199,117,0.25)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#FAC775", marginBottom: 20 }}>
+      <div style={{ textAlign: "center", padding: "50px 24px 40px", background: "radial-gradient(ellipse at 50% 0%, rgba(255,255,255,0.12) 0%, transparent 70%)" }}>
+        <div style={{ display: "inline-flex", alignItems: "center", gap: 8, background: "rgba(255,255,255,0.1)", border: "1px solid rgba(255,255,255,0.25)", borderRadius: 20, padding: "5px 14px", fontSize: 12, color: "#FFFFFF", marginBottom: 20 }}>
           <Zap size={12} /> Now live in Bengaluru
         </div>
         <h1 style={{ fontSize: 38, fontWeight: 800, color: "#f8fafc", lineHeight: 1.15, margin: "0 0 14px", fontFamily: "'Georgia', serif" }}>
-          Park Smarter.<br /><span style={{ color: "#FAC775" }}>Earn from Home.</span>
+          Park Smarter.<br /><span style={{ color: "#FFFFFF" }}>Earn from Home.</span>
         </h1>
         <p style={{ fontSize: 15, color: "#94a3b8", maxWidth: 380, margin: "0 auto 32px", lineHeight: 1.6 }}>
           Book a private parking spot in someone's home — or earn money renting out your driveway.
         </p>
         <div style={{ display: "flex", gap: 12, justifyContent: "center", flexWrap: "wrap" }}>
-          <button onClick={() => setView("browse")} style={{ padding: "13px 28px", background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, fontSize: 14, border: "none", cursor: "pointer" }}>
+          <button onClick={() => setView("browse")} style={{ padding: "13px 28px", background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, fontSize: 14, border: "none", cursor: "pointer" }}>
             Find Parking Near Me
           </button>
-          <button onClick={() => setView("host-list")} style={{ padding: "13px 28px", background: "transparent", color: "#FAC775", borderRadius: 12, fontWeight: 600, fontSize: 14, border: "1.5px solid #FAC775", cursor: "pointer" }}>
+          <button onClick={() => setView("host-list")} style={{ padding: "13px 28px", background: "transparent", color: "#FFFFFF", borderRadius: 12, fontWeight: 600, fontSize: 14, border: "1.5px solid #FFFFFF", cursor: "pointer" }}>
             List Your Space →
           </button>
         </div>
@@ -101,7 +101,7 @@ function HomeView({ setView }) {
       <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 1, margin: "0 20px 32px", background: "rgba(255,255,255,0.06)", borderRadius: 16, overflow: "hidden", border: "1px solid rgba(255,255,255,0.06)" }}>
         {[["3,200+", "Active Spots"], ["₹35", "Avg/Hour"], ["4.8★", "Avg Rating"]].map(([val, lbl]) => (
           <div key={lbl} style={{ padding: "20px 16px", textAlign: "center", background: "rgba(255,255,255,0.02)" }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: "#FAC775", fontFamily: "monospace" }}>{val}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#FFFFFF", fontFamily: "monospace" }}>{val}</div>
             <div style={{ fontSize: 11, color: "#64748b", marginTop: 3 }}>{lbl}</div>
           </div>
         ))}
@@ -110,7 +110,7 @@ function HomeView({ setView }) {
       <div style={{ padding: "0 20px", marginBottom: 28 }}>
         <div style={{ fontSize: 11, textTransform: "uppercase", letterSpacing: 2, color: "#64748b", marginBottom: 14 }}>How It Works</div>
         {[
-          { icon: <Search size={18} color="#FAC775" />, title: "Find a spot", desc: "Search by area, price, or vehicle type — see spots near you on the map." },
+          { icon: <Search size={18} color="#FFFFFF" />, title: "Find a spot", desc: "Search by area, price, or vehicle type — see spots near you on the map." },
           { icon: <Calendar size={18} color="#5DCAA5" />, title: "Book instantly", desc: "Select time slot and pay securely. Get directions straight to the spot." },
           { icon: <IndianRupee size={18} color="#AFA9EC" />, title: "Park & go", desc: "Arrive, park stress-free, and pay only for the time you use." },
         ].map((item, i) => (
@@ -124,10 +124,10 @@ function HomeView({ setView }) {
         ))}
       </div>
 
-      <div style={{ margin: "0 20px", padding: 20, background: "linear-gradient(135deg, rgba(250,199,117,0.08), rgba(250,199,117,0.03))", borderRadius: 16, border: "1px solid rgba(250,199,117,0.2)" }}>
-        <div style={{ fontSize: 16, fontWeight: 700, color: "#FAC775", marginBottom: 6 }}>🏠 Are you a homeowner?</div>
+      <div style={{ margin: "0 20px", padding: 20, background: "linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03))", borderRadius: 16, border: "1px solid rgba(255,255,255,0.2)" }}>
+        <div style={{ fontSize: 16, fontWeight: 700, color: "#FFFFFF", marginBottom: 6 }}>🏠 Are you a homeowner?</div>
         <p style={{ fontSize: 13, color: "#94a3b8", marginBottom: 14, lineHeight: 1.5 }}>Earn ₹3,000–₹15,000/month by renting your unused driveway or garage. Zero effort, instant payouts.</p>
-        <button onClick={() => setView("host-dashboard")} style={{ width: "100%", padding: "11px", background: "#FAC775", color: "#1a1506", borderRadius: 10, fontWeight: 700, fontSize: 13, border: "none", cursor: "pointer" }}>
+        <button onClick={() => setView("host-dashboard")} style={{ width: "100%", padding: "11px", background: "#FFFFFF", color: "#1a1506", borderRadius: 10, fontWeight: 700, fontSize: 13, border: "none", cursor: "pointer" }}>
           View Host Dashboard
         </button>
       </div>
@@ -156,7 +156,7 @@ function BrowseView({ setView, setSelectedSpace }) {
         </div>
         <div style={{ display: "flex", gap: 8, overflowX: "auto", paddingBottom: 8 }}>
           {AREA_FILTERS.map(a => (
-            <button key={a} onClick={() => setFilter(a)} style={{ padding: "6px 14px", borderRadius: 20, border: filter === a ? "1.5px solid #FAC775" : "1px solid rgba(255,255,255,0.12)", background: filter === a ? "rgba(250,199,117,0.15)" : "transparent", color: filter === a ? "#FAC775" : "#94a3b8", fontSize: 12, fontWeight: filter === a ? 600 : 400, whiteSpace: "nowrap", cursor: "pointer" }}>
+            <button key={a} onClick={() => setFilter(a)} style={{ padding: "6px 14px", borderRadius: 20, border: filter === a ? "1.5px solid #FFFFFF" : "1px solid rgba(255,255,255,0.12)", background: filter === a ? "rgba(255,255,255,0.15)" : "transparent", color: filter === a ? "#FFFFFF" : "#94a3b8", fontSize: 12, fontWeight: filter === a ? 600 : 400, whiteSpace: "nowrap", cursor: "pointer" }}>
               {a}
             </button>
           ))}
@@ -209,7 +209,7 @@ function SpaceDetailView({ space, setView }) {
       <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 12, padding: "14px 20px", width: "100%", marginBottom: 24 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
           <span style={{ color: "#94a3b8", fontSize: 13 }}>Booking ID</span>
-          <span style={{ color: "#FAC775", fontSize: 13, fontFamily: "monospace" }}>BK{Math.floor(Math.random() * 9000 + 1000)}</span>
+          <span style={{ color: "#FFFFFF", fontSize: 13, fontFamily: "monospace" }}>BK{Math.floor(Math.random() * 9000 + 1000)}</span>
         </div>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
           <span style={{ color: "#94a3b8", fontSize: 13 }}>{date} · {startTime}</span>
@@ -220,7 +220,7 @@ function SpaceDetailView({ space, setView }) {
           <span style={{ color: "#5DCAA5", fontSize: 14, fontWeight: 700 }}>₹{total + platformFee}</span>
         </div>
       </div>
-      <button onClick={() => setView("browse")} style={{ width: "100%", padding: 13, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Back to Browse</button>
+      <button onClick={() => setView("browse")} style={{ width: "100%", padding: 13, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Back to Browse</button>
     </div>
   );
 
@@ -242,7 +242,7 @@ function SpaceDetailView({ space, setView }) {
             </div>
           </div>
           <div style={{ textAlign: "right" }}>
-            <div style={{ fontSize: 22, fontWeight: 800, color: "#FAC775" }}>₹{space.price}</div>
+            <div style={{ fontSize: 22, fontWeight: 800, color: "#FFFFFF" }}>₹{space.price}</div>
             <div style={{ fontSize: 11, color: "#64748b" }}>per hour</div>
           </div>
         </div>
@@ -260,8 +260,8 @@ function SpaceDetailView({ space, setView }) {
             <div style={{ fontSize: 11, color: "#64748b" }}>Space Owner · Verified</div>
           </div>
           <div style={{ marginLeft: "auto", display: "flex", alignItems: "center", gap: 4 }}>
-            <Star size={12} fill="#FAC775" color="#FAC775" />
-            <span style={{ fontSize: 13, fontWeight: 600, color: "#FAC775" }}>{space.rating}</span>
+            <Star size={12} fill="#FFFFFF" color="#FFFFFF" />
+            <span style={{ fontSize: 13, fontWeight: 600, color: "#FFFFFF" }}>{space.rating}</span>
             <span style={{ fontSize: 11, color: "#64748b" }}>({space.reviews})</span>
           </div>
         </div>
@@ -269,7 +269,7 @@ function SpaceDetailView({ space, setView }) {
         <div style={{ padding: "12px 0", borderTop: "1px solid rgba(255,255,255,0.07)", borderBottom: "1px solid rgba(255,255,255,0.07)", marginBottom: 16 }}>
           <div style={{ fontSize: 11, color: "#64748b", marginBottom: 6 }}>AVAILABILITY</div>
           <div style={{ display: "flex", alignItems: "center", gap: 6, color: "#94a3b8", fontSize: 13 }}>
-            <Clock size={13} color="#FAC775" /> {space.timings}
+            <Clock size={13} color="#FFFFFF" /> {space.timings}
           </div>
         </div>
 
@@ -292,9 +292,9 @@ function SpaceDetailView({ space, setView }) {
 
         <div style={{ marginBottom: 16 }}>
           <label style={{ fontSize: 11, color: "#64748b", display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-            <span>DURATION</span><span style={{ color: "#FAC775", fontWeight: 600 }}>{hours} hour{hours > 1 ? "s" : ""}</span>
+            <span>DURATION</span><span style={{ color: "#FFFFFF", fontWeight: 600 }}>{hours} hour{hours > 1 ? "s" : ""}</span>
           </label>
-          <input type="range" min={1} max={8} value={hours} onChange={e => setHours(+e.target.value)} style={{ width: "100%", accentColor: "#FAC775" }} />
+          <input type="range" min={1} max={8} value={hours} onChange={e => setHours(+e.target.value)} style={{ width: "100%", accentColor: "#FFFFFF" }} />
           <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#475569", marginTop: 3 }}>
             <span>1h</span><span>8h</span>
           </div>
@@ -311,7 +311,7 @@ function SpaceDetailView({ space, setView }) {
           </div>
           <div style={{ display: "flex", justifyContent: "space-between" }}>
             <span style={{ color: "#f1f5f9", fontSize: 14, fontWeight: 700 }}>Total</span>
-            <span style={{ color: "#FAC775", fontSize: 16, fontWeight: 800 }}>₹{total + platformFee}</span>
+            <span style={{ color: "#FFFFFF", fontSize: 16, fontWeight: 800 }}>₹{total + platformFee}</span>
           </div>
         </div>
 
@@ -320,7 +320,7 @@ function SpaceDetailView({ space, setView }) {
             Currently Booked
           </button>
         ) : (
-          <button onClick={() => setBooked(true)} style={{ width: "100%", padding: 14, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 800, border: "none", cursor: "pointer", fontSize: 15 }}>
+          <button onClick={() => setBooked(true)} style={{ width: "100%", padding: 14, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 800, border: "none", cursor: "pointer", fontSize: 15 }}>
             Confirm Booking — ₹{total + platformFee}
           </button>
         )}
@@ -339,12 +339,12 @@ function HostListView({ setView }) {
 
   if (submitted) return (
     <div style={{ display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "70vh", padding: 24, textAlign: "center" }}>
-      <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(250,199,117,0.15)", border: "2px solid #FAC775", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
-        <Check size={32} color="#FAC775" />
+      <div style={{ width: 72, height: 72, borderRadius: "50%", background: "rgba(255,255,255,0.15)", border: "2px solid #FFFFFF", display: "flex", alignItems: "center", justifyContent: "center", marginBottom: 20 }}>
+        <Check size={32} color="#FFFFFF" />
       </div>
       <div style={{ fontSize: 22, fontWeight: 800, color: "#f8fafc", marginBottom: 8 }}>Space Listed!</div>
       <p style={{ color: "#94a3b8", fontSize: 14, marginBottom: 24 }}>Your spot is now live. Start earning from day one.</p>
-      <button onClick={() => setView("host-dashboard")} style={{ width: "100%", padding: 13, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>View My Dashboard</button>
+      <button onClick={() => setView("host-dashboard")} style={{ width: "100%", padding: 13, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>View My Dashboard</button>
     </div>
   );
 
@@ -359,10 +359,10 @@ function HostListView({ setView }) {
       <div style={{ display: "flex", gap: 6, marginBottom: 24 }}>
         {["Location", "Details", "Pricing"].map((s, i) => (
           <div key={s} style={{ flex: 1, display: "flex", alignItems: "center", gap: 6 }}>
-            <div style={{ width: 22, height: 22, borderRadius: "50%", background: step > i ? "#FAC775" : step === i + 1 ? "rgba(250,199,117,0.3)" : "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: step > i ? "#1a1506" : step === i + 1 ? "#FAC775" : "#475569" }}>
+            <div style={{ width: 22, height: 22, borderRadius: "50%", background: step > i ? "#FFFFFF" : step === i + 1 ? "rgba(255,255,255,0.3)" : "rgba(255,255,255,0.08)", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 11, fontWeight: 700, color: step > i ? "#1a1506" : step === i + 1 ? "#FFFFFF" : "#475569" }}>
               {step > i + 1 ? <Check size={12} color="#1a1506" /> : i + 1}
             </div>
-            <span style={{ fontSize: 11, color: step === i + 1 ? "#FAC775" : "#475569" }}>{s}</span>
+            <span style={{ fontSize: 11, color: step === i + 1 ? "#FFFFFF" : "#475569" }}>{s}</span>
             {i < 2 && <div style={{ flex: 1, height: 1, background: "rgba(255,255,255,0.1)" }} />}
           </div>
         ))}
@@ -378,7 +378,7 @@ function HostListView({ setView }) {
             <label style={{ fontSize: 11, color: "#64748b", display: "block", marginBottom: 6 }}>FULL ADDRESS / LANDMARK</label>
             <textarea value={form.address} onChange={e => setForm(f => ({ ...f, address: e.target.value }))} placeholder="House no., street, near landmark..." rows={3} style={{ width: "100%", padding: "11px 14px", background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.1)", borderRadius: 10, color: "#e2e8f0", fontSize: 14, boxSizing: "border-box", resize: "none" }} />
           </div>
-          <button onClick={() => setStep(2)} style={{ padding: 13, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Continue →</button>
+          <button onClick={() => setStep(2)} style={{ padding: 13, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Continue →</button>
         </div>
       )}
 
@@ -388,7 +388,7 @@ function HostListView({ setView }) {
             <label style={{ fontSize: 11, color: "#64748b", display: "block", marginBottom: 8 }}>PARKING TYPE</label>
             <div style={{ display: "flex", gap: 10 }}>
               {["Covered", "Open"].map(t => (
-                <button key={t} onClick={() => setForm(f => ({ ...f, type: t }))} style={{ flex: 1, padding: "10px", borderRadius: 10, border: form.type === t ? "2px solid #FAC775" : "1px solid rgba(255,255,255,0.12)", background: form.type === t ? "rgba(250,199,117,0.1)" : "transparent", color: form.type === t ? "#FAC775" : "#94a3b8", fontWeight: 500, cursor: "pointer" }}>
+                <button key={t} onClick={() => setForm(f => ({ ...f, type: t }))} style={{ flex: 1, padding: "10px", borderRadius: 10, border: form.type === t ? "2px solid #FFFFFF" : "1px solid rgba(255,255,255,0.12)", background: form.type === t ? "rgba(255,255,255,0.1)" : "transparent", color: form.type === t ? "#FFFFFF" : "#94a3b8", fontWeight: 500, cursor: "pointer" }}>
                   {t}
                 </button>
               ))}
@@ -398,7 +398,7 @@ function HostListView({ setView }) {
             <label style={{ fontSize: 11, color: "#64748b", display: "block", marginBottom: 8 }}>SUITABLE FOR</label>
             <div style={{ display: "flex", gap: 8, flexWrap: "wrap" }}>
               {["2-Wheeler", "4-Wheeler", "2/4-Wheeler"].map(s => (
-                <button key={s} onClick={() => setForm(f => ({ ...f, size: s }))} style={{ padding: "8px 14px", borderRadius: 8, border: form.size === s ? "1.5px solid #FAC775" : "1px solid rgba(255,255,255,0.12)", background: form.size === s ? "rgba(250,199,117,0.1)" : "transparent", color: form.size === s ? "#FAC775" : "#94a3b8", fontSize: 12, cursor: "pointer" }}>
+                <button key={s} onClick={() => setForm(f => ({ ...f, size: s }))} style={{ padding: "8px 14px", borderRadius: 8, border: form.size === s ? "1.5px solid #FFFFFF" : "1px solid rgba(255,255,255,0.12)", background: form.size === s ? "rgba(255,255,255,0.1)" : "transparent", color: form.size === s ? "#FFFFFF" : "#94a3b8", fontSize: 12, cursor: "pointer" }}>
                   {s}
                 </button>
               ))}
@@ -422,7 +422,7 @@ function HostListView({ setView }) {
           </div>
           <div style={{ display: "flex", gap: 10 }}>
             <button onClick={() => setStep(1)} style={{ flex: 1, padding: 13, background: "transparent", color: "#94a3b8", borderRadius: 12, fontWeight: 600, border: "1px solid rgba(255,255,255,0.12)", cursor: "pointer" }}>← Back</button>
-            <button onClick={() => setStep(3)} style={{ flex: 2, padding: 13, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Continue →</button>
+            <button onClick={() => setStep(3)} style={{ flex: 2, padding: 13, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>Continue →</button>
           </div>
         </div>
       )}
@@ -431,9 +431,9 @@ function HostListView({ setView }) {
         <div style={{ display: "flex", flexDirection: "column", gap: 16 }}>
           <div>
             <label style={{ fontSize: 11, color: "#64748b", display: "flex", justifyContent: "space-between", marginBottom: 8 }}>
-              <span>YOUR PRICE PER HOUR</span><span style={{ color: "#FAC775", fontWeight: 700, fontSize: 16 }}>₹{form.price}/hr</span>
+              <span>YOUR PRICE PER HOUR</span><span style={{ color: "#FFFFFF", fontWeight: 700, fontSize: 16 }}>₹{form.price}/hr</span>
             </label>
-            <input type="range" min={15} max={150} step={5} value={form.price} onChange={e => setForm(f => ({ ...f, price: +e.target.value }))} style={{ width: "100%", accentColor: "#FAC775" }} />
+            <input type="range" min={15} max={150} step={5} value={form.price} onChange={e => setForm(f => ({ ...f, price: +e.target.value }))} style={{ width: "100%", accentColor: "#FFFFFF" }} />
             <div style={{ display: "flex", justifyContent: "space-between", fontSize: 10, color: "#475569", marginTop: 3 }}><span>₹15</span><span>₹150</span></div>
           </div>
           <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.09)", borderRadius: 12, padding: "14px 16px" }}>
@@ -445,12 +445,12 @@ function HostListView({ setView }) {
               </div>
             ))}
           </div>
-          <div style={{ padding: "12px 14px", background: "rgba(250,199,117,0.06)", borderRadius: 10, fontSize: 12, color: "#94a3b8", lineHeight: 1.5 }}>
-            ParkMate takes a <strong style={{ color: "#FAC775" }}>15% commission</strong> per booking. You receive the rest instantly after each booking ends.
+          <div style={{ padding: "12px 14px", background: "rgba(255,255,255,0.06)", borderRadius: 10, fontSize: 12, color: "#94a3b8", lineHeight: 1.5 }}>
+            somyle takes a <strong style={{ color: "#FFFFFF" }}>15% commission</strong> per booking. You receive the rest instantly after each booking ends.
           </div>
           <div style={{ display: "flex", gap: 10 }}>
             <button onClick={() => setStep(2)} style={{ flex: 1, padding: 13, background: "transparent", color: "#94a3b8", borderRadius: 12, fontWeight: 600, border: "1px solid rgba(255,255,255,0.12)", cursor: "pointer" }}>← Back</button>
-            <button onClick={() => setSubmitted(true)} style={{ flex: 2, padding: 13, background: "#FAC775", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>List My Space 🚀</button>
+            <button onClick={() => setSubmitted(true)} style={{ flex: 2, padding: 13, background: "#FFFFFF", color: "#1a1506", borderRadius: 12, fontWeight: 700, border: "none", cursor: "pointer" }}>List My Space 🚀</button>
           </div>
         </div>
       )}
@@ -467,11 +467,11 @@ function HostDashboard({ setView }) {
           <div style={{ fontSize: 11, color: "#64748b" }}>Welcome back</div>
           <h2 style={{ fontSize: 20, fontWeight: 800, color: "#f1f5f9", margin: 0 }}>Host Dashboard</h2>
         </div>
-        <Avatar initials="YO" color="#FAC775" size={40} />
+        <Avatar initials="YO" color="#FFFFFF" size={40} />
       </div>
 
       <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 10, marginBottom: 20 }}>
-        {[["₹4,890", "This Month", "#FAC775"], ["28", "Bookings", "#5DCAA5"], ["4.9★", "Your Rating", "#AFA9EC"], ["₹28,140", "Total Earned", "#F0997B"]].map(([val, label, color]) => (
+        {[["₹4,890", "This Month", "#FFFFFF"], ["28", "Bookings", "#5DCAA5"], ["4.9★", "Your Rating", "#AFA9EC"], ["₹28,140", "Total Earned", "#F0997B"]].map(([val, label, color]) => (
           <div key={label} style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 12, padding: "14px 16px" }}>
             <div style={{ fontSize: 20, fontWeight: 800, color, fontFamily: "monospace" }}>{val}</div>
             <div style={{ fontSize: 11, color: "#64748b", marginTop: 3 }}>{label}</div>
@@ -484,7 +484,7 @@ function HostDashboard({ setView }) {
         <div style={{ display: "flex", alignItems: "flex-end", gap: 8, height: 90 }}>
           {HOST_EARNINGS.map((e, i) => (
             <div key={e.month} style={{ flex: 1, display: "flex", flexDirection: "column", alignItems: "center", gap: 5 }}>
-              <div style={{ width: "100%", background: i === HOST_EARNINGS.length - 1 ? "#FAC775" : "rgba(250,199,117,0.3)", borderRadius: "4px 4px 0 0", height: `${(e.amount / max) * 75}px`, transition: "height 0.5s" }} />
+              <div style={{ width: "100%", background: i === HOST_EARNINGS.length - 1 ? "#FFFFFF" : "rgba(255,255,255,0.3)", borderRadius: "4px 4px 0 0", height: `${(e.amount / max) * 75}px`, transition: "height 0.5s" }} />
               <div style={{ fontSize: 9, color: "#475569" }}>{e.month}</div>
             </div>
           ))}
@@ -494,11 +494,11 @@ function HostDashboard({ setView }) {
       <div style={{ background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.08)", borderRadius: 14, padding: "16px", marginBottom: 16 }}>
         <div style={{ display: "flex", justifyContent: "space-between", marginBottom: 12 }}>
           <div style={{ fontSize: 12, fontWeight: 600, color: "#94a3b8" }}>MY ACTIVE LISTING</div>
-          <button onClick={() => setView("host-list")} style={{ fontSize: 11, color: "#FAC775", background: "none", border: "none", cursor: "pointer" }}>+ Add New</button>
+          <button onClick={() => setView("host-list")} style={{ fontSize: 11, color: "#FFFFFF", background: "none", border: "none", cursor: "pointer" }}>+ Add New</button>
         </div>
         <div style={{ display: "flex", gap: 12, padding: "12px 14px", background: "rgba(255,255,255,0.04)", borderRadius: 10, border: "1px solid rgba(255,255,255,0.07)" }}>
-          <div style={{ width: 44, height: 44, background: "rgba(250,199,117,0.15)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
-            <Car size={22} color="#FAC775" />
+          <div style={{ width: 44, height: 44, background: "rgba(255,255,255,0.15)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <Car size={22} color="#FFFFFF" />
           </div>
           <div style={{ flex: 1 }}>
             <div style={{ fontSize: 14, fontWeight: 600, color: "#e2e8f0" }}>Koramangala, 3rd Block</div>
@@ -544,7 +544,7 @@ function MyBookingsView() {
             <div style={{ fontSize: 15, fontWeight: 700, color: "#f1f5f9", marginBottom: 3 }}>{b.space}</div>
             <div style={{ fontSize: 12, color: "#64748b", marginBottom: 10 }}>Hosted by {b.owner} · {b.date}</div>
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-              <span style={{ fontSize: 14, fontWeight: 700, color: "#FAC775" }}>₹{b.price}</span>
+              <span style={{ fontSize: 14, fontWeight: 700, color: "#FFFFFF" }}>₹{b.price}</span>
               {b.status === "active" && <button style={{ padding: "6px 14px", borderRadius: 8, background: "rgba(93,202,165,0.15)", border: "1px solid rgba(93,202,165,0.3)", color: "#5DCAA5", fontSize: 12, cursor: "pointer" }}>Get Directions</button>}
             </div>
           </div>
@@ -554,7 +554,7 @@ function MyBookingsView() {
   );
 }
 
-export default function ParkMate() {
+export default function somyle() {
   const [view, setView] = useState("home");
   const [selectedSpace, setSelectedSpace] = useState(null);
 
@@ -566,7 +566,7 @@ export default function ParkMate() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0f1117", fontFamily: "'DM Sans', system-ui, sans-serif", position: "relative", maxWidth: 430, margin: "0 auto" }}>
+    <div style={{ minHeight: "100vh", background: "#0A4D2E", fontFamily: "'DM Sans', system-ui, sans-serif", position: "relative", maxWidth: 430, margin: "0 auto" }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
       <div style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(15,17,23,0.95)", borderBottom: "1px solid rgba(255,255,255,0.07)", padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", backdropFilter: "blur(10px)" }}>
@@ -577,10 +577,10 @@ export default function ParkMate() {
             </button>
           ) : null}
           <div style={{ display: "flex", alignItems: "center", gap: 7 }}>
-            <div style={{ width: 28, height: 28, background: "#FAC775", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <div style={{ width: 28, height: 28, background: "#FFFFFF", borderRadius: 8, display: "flex", alignItems: "center", justifyContent: "center" }}>
               <Car size={16} color="#1a1506" strokeWidth={2.5} />
             </div>
-            <span style={{ fontSize: 18, fontWeight: 800, color: "#FAC775", letterSpacing: -0.5 }}>ParkMate</span>
+            <span style={{ fontSize: 18, fontWeight: 800, color: "#FFFFFF", letterSpacing: -0.5 }}>somyle</span>
           </div>
         </div>
         <div style={{ display: "flex", gap: 8 }}>
@@ -604,10 +604,10 @@ export default function ParkMate() {
         {navItems.map(item => {
           const active = view === item.id || (item.id === "browse" && view === "space-detail");
           return (
-            <button key={item.id} onClick={() => setView(item.id)} style={{ flex: 1, padding: "10px 4px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, background: "none", border: "none", cursor: "pointer", color: active ? "#FAC775" : "#475569", transition: "color 0.2s" }}>
+            <button key={item.id} onClick={() => setView(item.id)} style={{ flex: 1, padding: "10px 4px 12px", display: "flex", flexDirection: "column", alignItems: "center", gap: 4, background: "none", border: "none", cursor: "pointer", color: active ? "#FFFFFF" : "#475569", transition: "color 0.2s" }}>
               {item.icon}
               <span style={{ fontSize: 10, fontWeight: active ? 600 : 400 }}>{item.label}</span>
-              {active && <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#FAC775", position: "absolute", bottom: 6 }} />}
+              {active && <div style={{ width: 4, height: 4, borderRadius: "50%", background: "#FFFFFF", position: "absolute", bottom: 6 }} />}
             </button>
           );
         })}

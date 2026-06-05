@@ -1,6 +1,6 @@
 import { useAuth } from './auth/AuthContext'
 import AuthFlow from './auth/AuthFlow'
-import ParkMate from './ParkMate'
+import somyle from './somyle'
 
 function LoadingScreen() {
   return (
@@ -23,5 +23,5 @@ export default function AppRoot() {
   const { user, loading } = useAuth()
   if (loading) return <LoadingScreen />
   if (!user) return <AuthFlow />
-  return <ParkMate />
+  return <somyle />
 }

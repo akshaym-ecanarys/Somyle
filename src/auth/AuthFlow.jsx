@@ -47,7 +47,7 @@ function LandingScreen({ onPhoneChosen, onGoogleChosen }) {
       <div style={styles.iconRing}>
         <Car size={24} color="#FAC775" />
       </div>
-      <h2 style={styles.heading}>Welcome to ParkMate</h2>
+      <h2 style={styles.heading}>Welcome to somyle</h2>
       <p style={styles.sub}>Sign in or create an account to continue.</p>
 
       {/* Google Sign-In button */}
@@ -70,7 +70,7 @@ function LandingScreen({ onPhoneChosen, onGoogleChosen }) {
       </button>
 
       <p style={styles.hint}>
-        By continuing you agree to ParkMate's Terms of Service and Privacy Policy.
+        By continuing you agree to somyle's Terms of Service and Privacy Policy.
       </p>
     </div>
   );
@@ -271,7 +271,7 @@ function RegisterScreen({ phone, email, onDone }) {
     // Simulate registration API call — replace with real backend call later
     setTimeout(() => {
       setLoading(false);
-      // Log user in with a dummy token so we can see ParkMate after registering
+      // Log user in with a dummy token so we can see somyle after registering
       login("dummy_token_replace_with_real_jwt", {
         phone,
         email,
@@ -431,7 +431,7 @@ export default function AuthFlow() {
             <Car size={22} color="#1a1506" strokeWidth={2.5} />
           </div>
           <span style={{ fontSize: 24, fontWeight: 800, color: "#FAC775", letterSpacing: -0.5 }}>
-            ParkMate
+            somyle
           </span>
         </div>
 
