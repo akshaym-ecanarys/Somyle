@@ -424,13 +424,13 @@ export default function AuthFlow() {
         {/* Brand logo */}
         <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 32 }}>
           <div style={{
-            width: 40, height: 40, background: "#FAC775", borderRadius: 12,
+            width: 40, height: 40, background: "#0A3D20", borderRadius: 12,
             display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 4px 20px rgba(250,199,117,0.3)",
+            boxShadow: "0 4px 20px rgba(10,61,32,0.3)",
           }}>
-            <Car size={22} color="#1a1506" strokeWidth={2.5} />
+            <Car size={22} color="#ffffff" strokeWidth={2.5} />
           </div>
-          <span style={{ fontSize: 24, fontWeight: 800, color: "#FAC775", letterSpacing: -0.5 }}>
+          <span style={{ fontSize: 24, fontWeight: 800, color: "#0A3D20", letterSpacing: -0.5 }}>
             somyle
           </span>
         </div>
