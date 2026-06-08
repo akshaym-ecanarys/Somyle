@@ -2,25 +2,19 @@ import { useState, useEffect } from 'react'
 import { useAuth } from './auth/AuthContext'
 import AuthFlow from './auth/AuthFlow'
 import Somyle from './Somyle'
+import somyleLogo from './assets/somyle-logo.jpg'
 
 function SplashScreen() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#0A3D20',
+      background: '#02422a',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
       fontFamily: "'DM Sans', system-ui, sans-serif",
     }}>
-      <span style={{
-        fontSize: 52,
-        fontWeight: 800,
-        color: '#ffffff',
-        letterSpacing: -2,
-      }}>
-        somyle
-      </span>
+      <img src={somyleLogo} alt="somyle" style={{ width: 220 }} />
     </div>
   )
 }
