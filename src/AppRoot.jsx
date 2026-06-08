@@ -14,7 +14,22 @@ function SplashScreen() {
       justifyContent: 'center',
       fontFamily: "'DM Sans', system-ui, sans-serif",
     }}>
-      <img src={somyleLogo} alt="somyle" style={{ width: 220 }} />
+      <style>{`
+  @keyframes splash {
+    0%   { transform: scale(0.5); opacity: 0; }
+    60%  { transform: scale(1.1); opacity: 1; }
+    100% { transform: scale(1);   opacity: 1; }
+  }
+  .splash-logo {
+    animation: splash 0.8s ease-out forwards;
+  }
+`}</style>
+<img
+  src={somyleLogo}
+  alt="somyle"
+  className="splash-logo"
+  style={{ width: 220 }}
+/>
     </div>
   )
 }
