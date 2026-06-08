@@ -1,27 +1,40 @@
+import { useState, useEffect } from 'react'
 import { useAuth } from './auth/AuthContext'
 import AuthFlow from './auth/AuthFlow'
-import somyle from './somyle'
+import Somyle from './Somyle'
 
-function LoadingScreen() {
+function SplashScreen() {
   return (
     <div style={{
-      minHeight: '100vh', background: '#0f1117',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      minHeight: '100vh',
+      background: '#0A3D20',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontFamily: "'DM Sans', system-ui, sans-serif",
     }}>
-      <div style={{
-        width: 36, height: 36,
-        border: '3px solid rgba(250,199,117,0.2)',
-        borderTopColor: '#FAC775', borderRadius: '50%',
-        animation: 'spin 0.7s linear infinite',
-      }} />
-      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
+      <span style={{
+        fontSize: 52,
+        fontWeight: 800,
+        color: '#ffffff',
+        letterSpacing: -2,
+      }}>
+        somyle
+      </span>
     </div>
   )
 }
 
 export default function AppRoot() {
   const { user, loading } = useAuth()
-  if (loading) return <LoadingScreen />
+  const [showSplash, setShowSplash] = useState(true)
+
+  useEffect(() => {
+    const t = setTimeout(() => setShowSplash(false), 2000)
+    return () => clearTimeout(t)
+  }, [])
+
+  if (showSplash || loading) return <SplashScreen />
   if (!user) return <AuthFlow />
-  return <somyle />
+  return <Somyle />
 }
