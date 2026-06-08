@@ -566,7 +566,7 @@ export default function somyle() {
   ];
 
   return (
-    <div style={{ minHeight: "100vh", background: "#0A4D2E", fontFamily: "'DM Sans', system-ui, sans-serif", position: "relative", maxWidth: 430, margin: "0 auto" }}>
+    <div style={{ minHeight: "100vh", background: "#E0F7F7", fontFamily: "'DM Sans', system-ui, sans-serif", position: "relative", maxWidth: 430, margin: "0 auto" }}>
       <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
 
       <div style={{ position: "sticky", top: 0, zIndex: 100, background: "rgba(15,17,23,0.95)", borderBottom: "1px solid rgba(255,255,255,0.07)", padding: "14px 18px", display: "flex", alignItems: "center", justifyContent: "space-between", backdropFilter: "blur(10px)" }}>

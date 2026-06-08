@@ -342,7 +342,7 @@ function RegisterScreen({ phone, email, onDone }) {
             style={{
               flex: 1, padding: "18px 12px", borderRadius: 14, cursor: "pointer",
               border:     role === r.id ? `2px solid ${r.accent}` : "1px solid rgba(255,255,255,0.1)",
-              background: role === r.id ? `${r.accent}18` : "rgba(255,255,255,0.03)",
+              background: role === r.id ? `${r.accent}18` : "#ffffff",
               textAlign:  "center", transition: "all 0.2s",
             }}
           >
@@ -414,7 +414,7 @@ export default function AuthFlow() {
 
       <div style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #0f1117 0%, #151922 100%)",
+        background: "linear-gradient(135deg, #E0F7F7 0%, #F0FAFA 100%)",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
         padding: "24px 20px",
@@ -489,8 +489,8 @@ export default function AuthFlow() {
 
 const styles = {
   card: {
-    background: "rgba(255,255,255,0.03)",
-    border: "1px solid rgba(255,255,255,0.09)",
+    background: "#ffffff",
+    border: "1px solid #B2EBEB",
     borderRadius: 20, padding: "32px 28px",
     width: "100%", position: "relative",
   },
