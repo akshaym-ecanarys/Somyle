@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from "react";
-import { Phone, ArrowLeft, Car, Shield, Zap, User, Home, Mail, CheckCircle } from "lucide-react";
+import { Phone, ArrowLeft, Shield, Zap, User, Home, Mail, CheckCircle } from "lucide-react";
 import { useAuth } from "./AuthContext";
+import somyleLogo from "../assets/somyle-logo.jpg";
 
 // ─── Small reusable pieces ────────────────────────────────────────────────────
 
@@ -39,39 +40,146 @@ function GoogleIcon() {
   );
 }
 
-// ─── Screen 1: Landing ────────────────────────────────────────────────────────
+// ─── Screen 1: Landing (animated) ────────────────────────────────────────────
 
 function LandingScreen({ onPhoneChosen, onGoogleChosen }) {
+  const [phase, setPhase] = useState("green"); // "green" → "split" → "revealed"
+
+  useEffect(() => {
+    // Step 1: after 100ms start the green panel sliding up
+    const t1 = setTimeout(() => setPhase("split"), 100);
+    // Step 2: after animation completes, mark as fully revealed
+    const t2 = setTimeout(() => setPhase("revealed"), 750);
+    return () => { clearTimeout(t1); clearTimeout(t2); };
+  }, []);
+
+  const panelHeight = phase === "green" ? "100%" : phase === "split" ? "42%" : "42%";
+  const contentVisible = phase === "revealed" || phase === "split";
+
   return (
-    <div style={styles.card}>
-      <div style={styles.iconRing}>
-        <Car size={24} color="#FAC775" />
+    <div style={{
+      position: "fixed", inset: 0,
+      background: "#f5f7f2",
+      fontFamily: "'DM Sans', system-ui, sans-serif",
+      overflow: "hidden",
+    }}>
+      {/* ── Green top panel that slides up ── */}
+      <div style={{
+        position: "absolute", top: 0, left: 0, right: 0,
+        height: panelHeight,
+        background: "#024027",
+        borderBottomLeftRadius: phase !== "green" ? 32 : 0,
+        borderBottomRightRadius: phase !== "green" ? 32 : 0,
+        transition: "height 0.65s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.65s ease",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "center",
+        zIndex: 2,
+      }}>
+        <img
+          src={somyleLogo}
+          alt="somyle"
+          style={{
+            width: 130, height: 130,
+            borderRadius: 28,
+            objectFit: "cover",
+            opacity: phase === "green" ? 1 : 0,
+            transform: phase === "green" ? "scale(1)" : "scale(0.85)",
+            transition: "opacity 0.3s ease, transform 0.3s ease",
+          }}
+        />
+        {/* Small logo shown when panel is shrunk */}
+        {phase !== "green" && (
+          <img
+            src={somyleLogo}
+            alt="somyle"
+            style={{
+              position: "absolute",
+              width: 70, height: 70,
+              borderRadius: 16,
+              objectFit: "cover",
+              bottom: 20,
+              opacity: contentVisible ? 1 : 0,
+              transform: contentVisible ? "scale(1)" : "scale(0.8)",
+              transition: "opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s",
+            }}
+          />
+        )}
       </div>
-      <h2 style={styles.heading}>Welcome to somyle</h2>
-      <p style={styles.sub}>Sign in or create an account to continue.</p>
 
-      {/* Google Sign-In button */}
-      <button onClick={onGoogleChosen} style={styles.googleBtn}>
-        <GoogleIcon />
-        Continue with Google
-      </button>
+      {/* ── Bottom content area ── */}
+      <div style={{
+        position: "absolute", bottom: 0, left: 0, right: 0,
+        top: "38%",
+        display: "flex", flexDirection: "column",
+        alignItems: "center", justifyContent: "flex-end",
+        padding: "0 24px 40px",
+        zIndex: 1,
+      }}>
+        {/* Welcome text */}
+        <div style={{
+          textAlign: "center", marginBottom: 32, width: "100%",
+          opacity: contentVisible ? 1 : 0,
+          transform: contentVisible ? "translateY(0)" : "translateY(30px)",
+          transition: "opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s",
+        }}>
+          <h1 style={{
+            fontSize: 26, fontWeight: 800, color: "#0A3D20",
+            margin: "0 0 6px", letterSpacing: -0.5,
+          }}>
+            Welcome to somyle
+          </h1>
+          <p style={{ fontSize: 14, color: "#6b7280", margin: 0, lineHeight: 1.5 }}>
+            Sign in or create an account to continue.
+          </p>
+        </div>
 
-      {/* Divider */}
-      <div style={styles.divider}>
-        <div style={styles.dividerLine} />
-        <span style={styles.dividerText}>or</span>
-        <div style={styles.dividerLine} />
+        {/* Google button */}
+        <div style={{
+          width: "100%", maxWidth: 400,
+          opacity: contentVisible ? 1 : 0,
+          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
+          transition: "opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s",
+        }}>
+          <button onClick={onGoogleChosen} style={styles.googleBtn}>
+            <GoogleIcon />
+            Continue with Google
+          </button>
+        </div>
+
+        {/* Divider */}
+        <div style={{
+          ...styles.divider, width: "100%", maxWidth: 400,
+          opacity: contentVisible ? 1 : 0,
+          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
+          transition: "opacity 0.5s ease 0.52s, transform 0.5s ease 0.52s",
+        }}>
+          <div style={styles.dividerLine} />
+          <span style={styles.dividerText}>or</span>
+          <div style={styles.dividerLine} />
+        </div>
+
+        {/* Phone button */}
+        <div style={{
+          width: "100%", maxWidth: 400,
+          opacity: contentVisible ? 1 : 0,
+          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
+          transition: "opacity 0.5s ease 0.59s, transform 0.5s ease 0.59s",
+        }}>
+          <button onClick={onPhoneChosen} style={styles.phoneBtn}>
+            <Phone size={16} />
+            Continue with Phone Number
+          </button>
+        </div>
+
+        {/* Terms */}
+        <p style={{
+          ...styles.hint,
+          opacity: contentVisible ? 1 : 0,
+          transition: "opacity 0.5s ease 0.68s",
+        }}>
+          By continuing you agree to somyle's Terms of Service and Privacy Policy.
+        </p>
       </div>
-
-      {/* Phone button */}
-      <button onClick={onPhoneChosen} style={styles.phoneBtn}>
-        <Phone size={16} />
-        Continue with Phone Number
-      </button>
-
-      <p style={styles.hint}>
-        By continuing you agree to somyle's Terms of Service and Privacy Policy.
-      </p>
     </div>
   );
 }
@@ -230,8 +338,8 @@ function OTPScreen({ phone, onVerified, onBack }) {
             autoFocus={i === 0}
             style={{
               ...styles.otpBox,
-              borderColor: d ? "#FAC775" : "rgba(255,255,255,0.12)",
-              background:  d ? "rgba(250,199,117,0.08)" : "rgba(255,255,255,0.04)",
+              borderColor: d ? "#0A3D20" : "#d1d5db",
+              background:  d ? "rgba(10,61,32,0.06)" : "#f9fafb",
             }}
           />
         ))}
@@ -246,7 +354,7 @@ function OTPScreen({ phone, onVerified, onBack }) {
       {/* Resend countdown */}
       <div style={{ textAlign: "center", marginTop: 20, fontSize: 13, color: "#64748b" }}>
         {resendSec > 0 ? (
-          <>Resend OTP in <span style={{ color: "#FAC775", fontWeight: 600 }}>{resendSec}s</span></>
+          <>Resend OTP in <span style={{ color: "#0A3D20", fontWeight: 600 }}>{resendSec}s</span></>
         ) : (
           <button onClick={handleResend} style={styles.linkBtn}>
             Resend OTP
@@ -311,12 +419,12 @@ function RegisterScreen({ phone, email, onDone }) {
       {(phone || email) && (
         <div style={{
           display: "flex", alignItems: "center", gap: 8,
-          background: "rgba(93,202,165,0.08)", border: "1px solid rgba(93,202,165,0.2)",
+          background: "rgba(10,61,32,0.05)", border: "1px solid rgba(10,61,32,0.15)",
           borderRadius: 10, padding: "8px 12px", marginBottom: 20,
         }}>
-          {email ? <Mail size={14} color="#5DCAA5" /> : <Phone size={14} color="#5DCAA5" />}
-          <span style={{ fontSize: 13, color: "#5DCAA5" }}>{email || phone}</span>
-          <CheckCircle size={14} color="#5DCAA5" style={{ marginLeft: "auto" }} />
+          {email ? <Mail size={14} color="#0A3D20" /> : <Phone size={14} color="#0A3D20" />}
+          <span style={{ fontSize: 13, color: "#0A3D20" }}>{email || phone}</span>
+          <CheckCircle size={14} color="#0A3D20" style={{ marginLeft: "auto" }} />
         </div>
       )}
 
@@ -401,6 +509,26 @@ export default function AuthFlow() {
     setStep("register");
   }
 
+  // Landing screen gets its own fullscreen animated treatment
+  if (step === "landing") {
+    return (
+      <>
+        <style>{`
+          @keyframes pm-spin { to { transform: rotate(360deg); } }
+          * { box-sizing: border-box; }
+        `}</style>
+        <link
+          href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"
+        />
+        <LandingScreen
+          onPhoneChosen={() => setStep("phone")}
+          onGoogleChosen={handleGoogleChosen}
+        />
+      </>
+    );
+  }
+
   return (
     <>
       <style>{`
@@ -414,25 +542,20 @@ export default function AuthFlow() {
 
       <div style={{
         minHeight: "100vh",
-        background: "linear-gradient(135deg, #E0F7F7 0%, #F0FAFA 100%)",
+        background: "linear-gradient(135deg, #e8f5e9 0%, #f1f8f1 100%)",
         display: "flex", flexDirection: "column",
         alignItems: "center", justifyContent: "center",
         padding: "24px 20px",
         fontFamily: "'DM Sans', system-ui, sans-serif",
       }}>
 
-        {/* Brand logo */}
-        <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 32 }}>
-          <div style={{
-            width: 40, height: 40, background: "#0A3D20", borderRadius: 12,
-            display: "flex", alignItems: "center", justifyContent: "center",
-            boxShadow: "0 4px 20px rgba(10,61,32,0.3)",
-          }}>
-            <Car size={22} color="#ffffff" strokeWidth={2.5} />
-          </div>
-          <span style={{ fontSize: 24, fontWeight: 800, color: "#0A3D20", letterSpacing: -0.5 }}>
-            somyle
-          </span>
+        {/* Brand logo small */}
+        <div style={{ marginBottom: 24 }}>
+          <img
+            src={somyleLogo}
+            alt="somyle"
+            style={{ width: 56, height: 56, borderRadius: 14, objectFit: "cover" }}
+          />
         </div>
 
         {/* Progress dots */}
@@ -445,7 +568,7 @@ export default function AuthFlow() {
                 ? "#5DCAA5"
                 : i === current
                 ? "#FAC775"
-                : "rgba(255,255,255,0.12)",
+                : "rgba(10,61,32,0.12)",
               transition: "all 0.35s ease",
             }} />
           ))}
@@ -453,12 +576,6 @@ export default function AuthFlow() {
 
         {/* Screens */}
         <div style={{ width: "100%", maxWidth: 400 }}>
-          {step === "landing" && (
-            <LandingScreen
-              onPhoneChosen={() => setStep("phone")}
-              onGoogleChosen={handleGoogleChosen}
-            />
-          )}
           {step === "phone" && (
             <PhoneScreen
               onNext={p => { setPhone(p); setStep("otp"); }}
@@ -490,34 +607,35 @@ export default function AuthFlow() {
 const styles = {
   card: {
     background: "#ffffff",
-    border: "1px solid #B2EBEB",
+    border: "1px solid #d1e8d4",
     borderRadius: 20, padding: "32px 28px",
     width: "100%", position: "relative",
+    boxShadow: "0 4px 24px rgba(10,61,32,0.08)",
   },
   iconRing: {
     width: 56, height: 56, borderRadius: "50%",
-    background: "rgba(250,199,117,0.1)",
-    border: "1.5px solid rgba(250,199,117,0.25)",
+    background: "rgba(10,61,32,0.06)",
+    border: "1.5px solid rgba(10,61,32,0.12)",
     display: "flex", alignItems: "center", justifyContent: "center",
     margin: "0 auto 18px",
   },
   heading: {
-    fontSize: 22, fontWeight: 800, color: "#f8fafc",
+    fontSize: 22, fontWeight: 800, color: "#0A3D20",
     margin: "0 0 6px", textAlign: "center",
   },
   sub: {
-    fontSize: 13, color: "#94a3b8",
+    fontSize: 13, color: "#6b7280",
     margin: "0 0 24px", textAlign: "center", lineHeight: 1.6,
   },
   label: {
-    fontSize: 10, letterSpacing: 1.5, color: "#64748b",
+    fontSize: 10, letterSpacing: 1.5, color: "#4b5563",
     display: "block", marginBottom: 8, fontWeight: 700,
   },
   input: {
     width: "100%", padding: "12px 14px",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: 12, color: "#f1f5f9", fontSize: 15, outline: "none",
+    background: "#f9fafb",
+    border: "1px solid #d1d5db",
+    borderRadius: 12, color: "#111827", fontSize: 15, outline: "none",
     fontFamily: "'DM Sans', system-ui, sans-serif", marginBottom: 16,
   },
   phoneRow: {
@@ -525,44 +643,46 @@ const styles = {
   },
   countryCode: {
     padding: "12px 14px",
-    background: "rgba(255,255,255,0.05)",
-    border: "1px solid rgba(255,255,255,0.1)",
-    borderRadius: 12, fontSize: 14, color: "#e2e8f0",
+    background: "#f9fafb",
+    border: "1px solid #d1d5db",
+    borderRadius: 12, fontSize: 14, color: "#374151",
     display: "flex", alignItems: "center", whiteSpace: "nowrap",
   },
   primaryBtn: {
     width: "100%", padding: "14px",
-    background: "#FAC775", color: "#1a1506",
+    background: "#0A3D20", color: "#ffffff",
     borderRadius: 12, fontWeight: 800, fontSize: 15,
     border: "none", cursor: "pointer",
     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
     fontFamily: "'DM Sans', system-ui, sans-serif",
-    boxShadow: "0 4px 16px rgba(250,199,117,0.25)",
+    boxShadow: "0 4px 16px rgba(10,61,32,0.25)",
     transition: "opacity 0.2s",
   },
   googleBtn: {
-    width: "100%", padding: "13px",
+    width: "100%", padding: "14px",
     background: "#ffffff", color: "#1a1a1a",
-    borderRadius: 12, fontWeight: 600, fontSize: 14,
-    border: "none", cursor: "pointer",
+    borderRadius: 14, fontWeight: 600, fontSize: 15,
+    border: "1px solid #e5e7eb", cursor: "pointer",
     display: "flex", alignItems: "center", justifyContent: "center", gap: 10,
     fontFamily: "'DM Sans', system-ui, sans-serif",
-    boxShadow: "0 2px 8px rgba(0,0,0,0.3)",
+    boxShadow: "0 2px 8px rgba(0,0,0,0.08)",
+    marginBottom: 0,
   },
   phoneBtn: {
-    width: "100%", padding: "13px",
-    background: "transparent", color: "#FAC775",
-    borderRadius: 12, fontWeight: 600, fontSize: 14,
-    border: "1.5px solid rgba(250,199,117,0.35)", cursor: "pointer",
+    width: "100%", padding: "14px",
+    background: "#0A3D20", color: "#ffffff",
+    borderRadius: 14, fontWeight: 600, fontSize: 15,
+    border: "none", cursor: "pointer",
     display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
     fontFamily: "'DM Sans', system-ui, sans-serif",
+    boxShadow: "0 4px 16px rgba(10,61,32,0.2)",
   },
-  divider: { display: "flex", alignItems: "center", gap: 12, margin: "16px 0" },
-  dividerLine: { flex: 1, height: 1, background: "rgba(255,255,255,0.08)" },
-  dividerText: { fontSize: 12, color: "#475569" },
+  divider: { display: "flex", alignItems: "center", gap: 12, margin: "14px 0" },
+  dividerLine: { flex: 1, height: 1, background: "#e5e7eb" },
+  dividerText: { fontSize: 12, color: "#9ca3af" },
   hint: {
-    fontSize: 11, color: "#475569",
-    textAlign: "center", margin: "16px 0 0", lineHeight: 1.6,
+    fontSize: 11, color: "#9ca3af",
+    textAlign: "center", margin: "14px 0 0", lineHeight: 1.6,
   },
   otpRow: {
     display: "flex", gap: 10,
@@ -570,7 +690,7 @@ const styles = {
   },
   otpBox: {
     width: 46, height: 54, textAlign: "center",
-    fontSize: 22, fontWeight: 700, color: "#FAC775",
+    fontSize: 22, fontWeight: 700, color: "#0A3D20",
     borderRadius: 12, border: "1.5px solid",
     outline: "none", transition: "all 0.2s",
     fontFamily: "monospace", background: "transparent",
@@ -578,13 +698,13 @@ const styles = {
   backBtn: {
     position: "absolute", top: 18, left: 18,
     background: "none", border: "none",
-    color: "#64748b", fontSize: 13, cursor: "pointer",
+    color: "#6b7280", fontSize: 13, cursor: "pointer",
     display: "flex", alignItems: "center", gap: 4,
     fontFamily: "'DM Sans', system-ui, sans-serif",
   },
   linkBtn: {
     background: "none", border: "none",
-    color: "#FAC775", fontSize: 13,
+    color: "#0A3D20", fontSize: 13,
     cursor: "pointer", fontWeight: 700, padding: 0,
     fontFamily: "'DM Sans', system-ui, sans-serif",
   },
