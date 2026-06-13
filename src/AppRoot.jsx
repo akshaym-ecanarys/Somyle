@@ -8,7 +8,7 @@ function SplashScreen() {
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#02422a',
+      background: '#024027',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
