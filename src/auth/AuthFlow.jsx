@@ -40,144 +40,241 @@ function GoogleIcon() {
   );
 }
 
-// ─── Screen 1: Landing (animated) ────────────────────────────────────────────
+// ─── Parking image cards data ─────────────────────────────────────────────────
+// Using emoji + colored cards to represent parking spots (no external images needed)
+const CARD_ITEMS = [
+  { emoji: "🏢", label: "Office Parking",  bg: "#d4edda" },
+  { emoji: "🛍️", label: "Mall Parking",    bg: "#fde8d8" },
+  { emoji: "🏥", label: "Hospital Spot",   bg: "#dce8fb" },
+  { emoji: "🏠", label: "Home Parking",    bg: "#e8f5e9" },
+  { emoji: "✈️", label: "Airport Spot",    bg: "#fff3cd" },
+  { emoji: "🎭", label: "Event Parking",   bg: "#f3e5f5" },
+  { emoji: "🏋️", label: "Gym Spot",        bg: "#fce4ec" },
+  { emoji: "🍽️", label: "Restaurant",      bg: "#e0f7fa" },
+  { emoji: "📍", label: "Prime Location",  bg: "#f1f8e9" },
+  { emoji: "🌳", label: "Shaded Parking",  bg: "#e8f5e9" },
+];
 
-function LandingScreen({ onPhoneChosen, onGoogleChosen }) {
-  const [phase, setPhase] = useState("green"); // "green" → "split" → "revealed"
+function ScrollRow({ items, direction = "left", speed = 30 }) {
+  // Duplicate items for seamless loop
+  const all = [...items, ...items];
+  const rowRef = useRef(null);
+  const posRef = useRef(0);
+  const rafRef = useRef(null);
 
   useEffect(() => {
-    // Step 1: after 100ms start the green panel sliding up
-    const t1 = setTimeout(() => setPhase("split"), 100);
-    // Step 2: after animation completes, mark as fully revealed
-    const t2 = setTimeout(() => setPhase("revealed"), 750);
-    return () => { clearTimeout(t1); clearTimeout(t2); };
+    const el = rowRef.current;
+    if (!el) return;
+    const cardW = 140 + 10; // card width + gap
+    const totalW = cardW * items.length;
+    const step = direction === "left" ? -0.4 : 0.4;
+
+    function animate() {
+      posRef.current += step;
+      if (direction === "left" && posRef.current <= -totalW) posRef.current = 0;
+      if (direction === "right" && posRef.current >= 0) posRef.current = -totalW;
+      el.style.transform = `translateX(${posRef.current}px)`;
+      rafRef.current = requestAnimationFrame(animate);
+    }
+    if (direction === "right") posRef.current = -totalW;
+    rafRef.current = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(rafRef.current);
+  }, [direction, items.length]);
+
+  return (
+    <div style={{ overflow: "hidden", width: "100%" }}>
+      <div ref={rowRef} style={{
+        display: "flex", gap: 10, willChange: "transform",
+      }}>
+        {all.map((item, i) => (
+          <div key={i} style={{
+            minWidth: 140, height: 90,
+            background: item.bg,
+            borderRadius: 16,
+            display: "flex", flexDirection: "column",
+            alignItems: "center", justifyContent: "center",
+            gap: 6, flexShrink: 0,
+          }}>
+            <span style={{ fontSize: 28 }}>{item.emoji}</span>
+            <span style={{ fontSize: 11, fontWeight: 600, color: "#374151" }}>{item.label}</span>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ─── Screen 1: Landing ────────────────────────────────────────────────────────
+
+function LandingScreen({ onPhoneChosen }) {
+  const [visible, setVisible] = useState(false);
+  const [phone, setPhone] = useState("");
+  const [loading, setLoading] = useState(false);
+  const valid = /^[6-9]\d{9}$/.test(phone);
+
+  useEffect(() => {
+    const t = setTimeout(() => setVisible(true), 200);
+    return () => clearTimeout(t);
   }, []);
 
-  const panelHeight = phase === "green" ? "100%" : phase === "split" ? "42%" : "42%";
-  const contentVisible = phase === "revealed" || phase === "split";
+  function handleSend() {
+    if (!valid || loading) return;
+    setLoading(true);
+    setTimeout(() => {
+      setLoading(false);
+      onPhoneChosen(`+91${phone}`);
+    }, 1500);
+  }
+
+  const row1 = CARD_ITEMS.slice(0, 5);
+  const row2 = CARD_ITEMS.slice(5, 10);
+  const row3 = CARD_ITEMS.slice(0, 5).reverse();
 
   return (
     <div style={{
       position: "fixed", inset: 0,
-      background: "#f5f7f2",
+      background: "#ffffff",
       fontFamily: "'DM Sans', system-ui, sans-serif",
+      display: "flex", flexDirection: "column",
       overflow: "hidden",
     }}>
-      {/* ── Green top panel that slides up ── */}
+      {/* ── Top: scrolling cards area ── */}
       <div style={{
-        position: "absolute", top: 0, left: 0, right: 0,
-        height: panelHeight,
+        flex: "0 0 52%",
         background: "#024027",
-        borderBottomLeftRadius: phase !== "green" ? 32 : 0,
-        borderBottomRightRadius: phase !== "green" ? 32 : 0,
-        transition: "height 0.65s cubic-bezier(0.4, 0, 0.2, 1), border-radius 0.65s ease",
+        borderBottomLeftRadius: 32,
+        borderBottomRightRadius: 32,
+        overflow: "hidden",
+        position: "relative",
         display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "center",
-        zIndex: 2,
+        justifyContent: "center", gap: 10,
+        padding: "16px 0",
       }}>
-        <img
-          src={somyleLogo}
-          alt="somyle"
-          style={{
-            width: 130, height: 130,
-            borderRadius: 28,
-            objectFit: "cover",
-            opacity: phase === "green" ? 1 : 0,
-            transform: phase === "green" ? "scale(1)" : "scale(0.85)",
-            transition: "opacity 0.3s ease, transform 0.3s ease",
-          }}
-        />
-        {/* Small logo shown when panel is shrunk */}
-        {phase !== "green" && (
-          <img
-            src={somyleLogo}
-            alt="somyle"
-            style={{
-              position: "absolute",
-              width: 70, height: 70,
-              borderRadius: 16,
-              objectFit: "cover",
-              bottom: 20,
-              opacity: contentVisible ? 1 : 0,
-              transform: contentVisible ? "scale(1)" : "scale(0.8)",
-              transition: "opacity 0.4s ease 0.3s, transform 0.4s ease 0.3s",
-            }}
-          />
-        )}
+        {/* somyle logo top-left */}
+        <div style={{
+          position: "absolute", top: 18, left: 20,
+          display: "flex", alignItems: "center", gap: 8,
+          zIndex: 3,
+        }}>
+          <img src={somyleLogo} alt="somyle" style={{
+            width: 36, height: 36, borderRadius: 8, objectFit: "cover",
+          }} />
+          <span style={{ color: "#fff", fontWeight: 800, fontSize: 18, letterSpacing: -0.5 }}>
+            somyle
+          </span>
+        </div>
+
+        {/* Gradient fade left & right edges */}
+        <div style={{
+          position: "absolute", inset: 0, zIndex: 2, pointerEvents: "none",
+          background: "linear-gradient(to right, #024027 40px, transparent 100px, transparent calc(100% - 100px), #024027 calc(100% - 40px))",
+        }} />
+
+        {/* Scrolling rows */}
+        <div style={{ marginTop: 60, display: "flex", flexDirection: "column", gap: 10 }}>
+          <ScrollRow items={row1} direction="left"  speed={30} />
+          <ScrollRow items={row2} direction="right" speed={25} />
+          <ScrollRow items={row3} direction="left"  speed={35} />
+        </div>
       </div>
 
-      {/* ── Bottom content area ── */}
+      {/* ── Bottom: login form ── */}
       <div style={{
-        position: "absolute", bottom: 0, left: 0, right: 0,
-        top: "38%",
+        flex: 1,
         display: "flex", flexDirection: "column",
-        alignItems: "center", justifyContent: "flex-end",
-        padding: "0 24px 40px",
-        zIndex: 1,
+        alignItems: "center", justifyContent: "center",
+        padding: "28px 24px 32px",
       }}>
-        {/* Welcome text */}
+        {/* Heading */}
         <div style={{
-          textAlign: "center", marginBottom: 32, width: "100%",
-          opacity: contentVisible ? 1 : 0,
-          transform: contentVisible ? "translateY(0)" : "translateY(30px)",
-          transition: "opacity 0.5s ease 0.35s, transform 0.5s ease 0.35s",
+          textAlign: "center", marginBottom: 28,
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 0.5s ease 0.1s, transform 0.5s ease 0.1s",
+          width: "100%",
         }}>
           <h1 style={{
-            fontSize: 26, fontWeight: 800, color: "#0A3D20",
-            margin: "0 0 6px", letterSpacing: -0.5,
+            fontSize: 24, fontWeight: 800, color: "#0A3D20",
+            margin: "0 0 4px", letterSpacing: -0.5,
           }}>
-            Welcome to somyle
+            Log in or Sign up
           </h1>
-          <p style={{ fontSize: 14, color: "#6b7280", margin: 0, lineHeight: 1.5 }}>
-            Sign in or create an account to continue.
+          <p style={{ fontSize: 13, color: "#6b7280", margin: 0 }}>
+            Find and book parking spots near you
           </p>
         </div>
 
-        {/* Google button */}
+        {/* Phone input row */}
         <div style={{
           width: "100%", maxWidth: 400,
-          opacity: contentVisible ? 1 : 0,
-          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
-          transition: "opacity 0.5s ease 0.45s, transform 0.5s ease 0.45s",
+          opacity: visible ? 1 : 0,
+          transform: visible ? "translateY(0)" : "translateY(20px)",
+          transition: "opacity 0.5s ease 0.2s, transform 0.5s ease 0.2s",
         }}>
-          <button onClick={onGoogleChosen} style={styles.googleBtn}>
-            <GoogleIcon />
-            Continue with Google
-          </button>
-        </div>
+          <div style={{
+            display: "flex", alignItems: "center",
+            border: "1.5px solid #d1d5db",
+            borderRadius: 14, overflow: "hidden",
+            background: "#f9fafb", marginBottom: 14,
+          }}>
+            <div style={{
+              padding: "14px 14px",
+              borderRight: "1.5px solid #d1d5db",
+              fontSize: 14, fontWeight: 600, color: "#374151",
+              background: "#f3f4f6", whiteSpace: "nowrap",
+            }}>
+              🇮🇳 +91
+            </div>
+            <input
+              type="tel"
+              inputMode="numeric"
+              maxLength={10}
+              value={phone}
+              onChange={e => setPhone(e.target.value.replace(/\D/g, ""))}
+              onKeyDown={e => e.key === "Enter" && handleSend()}
+              placeholder="Enter mobile number"
+              autoFocus
+              style={{
+                flex: 1, padding: "14px 14px",
+                border: "none", outline: "none",
+                fontSize: 15, background: "transparent",
+                color: "#111827",
+                fontFamily: "'DM Sans', system-ui, sans-serif",
+              }}
+            />
+          </div>
 
-        {/* Divider */}
-        <div style={{
-          ...styles.divider, width: "100%", maxWidth: 400,
-          opacity: contentVisible ? 1 : 0,
-          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
-          transition: "opacity 0.5s ease 0.52s, transform 0.5s ease 0.52s",
-        }}>
-          <div style={styles.dividerLine} />
-          <span style={styles.dividerText}>or</span>
-          <div style={styles.dividerLine} />
-        </div>
-
-        {/* Phone button */}
-        <div style={{
-          width: "100%", maxWidth: 400,
-          opacity: contentVisible ? 1 : 0,
-          transform: contentVisible ? "translateY(0)" : "translateY(40px)",
-          transition: "opacity 0.5s ease 0.59s, transform 0.5s ease 0.59s",
-        }}>
-          <button onClick={onPhoneChosen} style={styles.phoneBtn}>
-            <Phone size={16} />
-            Continue with Phone Number
+          {/* Continue button */}
+          <button
+            onClick={handleSend}
+            disabled={!valid || loading}
+            style={{
+              width: "100%", padding: "15px",
+              background: valid ? "#024027" : "#9ca3af",
+              color: "#ffffff",
+              borderRadius: 14, fontWeight: 700, fontSize: 16,
+              border: "none", cursor: valid ? "pointer" : "not-allowed",
+              display: "flex", alignItems: "center", justifyContent: "center", gap: 8,
+              fontFamily: "'DM Sans', system-ui, sans-serif",
+              transition: "background 0.2s ease",
+              boxShadow: valid ? "0 4px 16px rgba(2,64,39,0.3)" : "none",
+            }}
+          >
+            {loading ? <Spinner /> : "Continue →"}
           </button>
         </div>
 
         {/* Terms */}
         <p style={{
-          ...styles.hint,
-          opacity: contentVisible ? 1 : 0,
-          transition: "opacity 0.5s ease 0.68s",
+          fontSize: 11, color: "#9ca3af", textAlign: "center",
+          margin: "16px 0 0", lineHeight: 1.6,
+          opacity: visible ? 1 : 0,
+          transition: "opacity 0.5s ease 0.35s",
         }}>
-          By continuing you agree to somyle's Terms of Service and Privacy Policy.
+          By continuing you agree to somyle's{" "}
+          <span style={{ color: "#024027", fontWeight: 600 }}>Terms of Service</span>
+          {" "}and{" "}
+          <span style={{ color: "#024027", fontWeight: 600 }}>Privacy Policy</span>.
         </p>
       </div>
     </div>
@@ -522,8 +619,7 @@ export default function AuthFlow() {
           rel="stylesheet"
         />
         <LandingScreen
-          onPhoneChosen={() => setStep("phone")}
-          onGoogleChosen={handleGoogleChosen}
+          onPhoneChosen={(phoneNumber) => { setPhone(phoneNumber); setStep("otp"); }}
         />
       </>
     );
